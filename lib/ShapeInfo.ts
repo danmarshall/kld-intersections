@@ -3,8 +3,8 @@
  *  @copyright 2002, 2017 Kevin Lindsey
  */
 
-import {Point2D} from "kld-affine";
-import {PathParser} from "kld-path-parser";
+import { Point2D } from "kld-affine";
+import { PathParser } from "kld-path-parser";
 import PathHandler from "./PathHandler.js";
 
 const degree90 = Math.PI * 0.5;
@@ -158,6 +158,9 @@ export function parsePoint(names, args) {
  *  @memberof module:kld-intersections
  */
 export default class ShapeInfo {
+    public name: string;
+    public args: (number | Point2D)[];
+
     /**
      *  @param {string} name
      *  @param {Array} args
@@ -293,8 +296,8 @@ export default class ShapeInfo {
             return result;
         }
 
-        const {x: p1x, y: p1y} = result.args[0];
-        const {x: p2x, y: p2y} = result.args[1];
+        const { x: p1x, y: p1y } = result.args[0];
+        const { x: p2x, y: p2y } = result.args[1];
         const width = p2x - p1x;
         const height = p2y - p1y;
 
@@ -333,19 +336,19 @@ export default class ShapeInfo {
 
         return new ShapeInfo(ShapeInfo.PATH, segments);
     }
-}
 
-// define shape name constants
-ShapeInfo.ARC = "Arc";
-ShapeInfo.QUADRATIC_BEZIER = "Bezier2";
-ShapeInfo.CUBIC_BEZIER = "Bezier3";
-ShapeInfo.CIRCLE = "Circle";
-ShapeInfo.ELLIPSE = "Ellipse";
-ShapeInfo.LINE = "Line";
-ShapeInfo.PATH = "Path";
-ShapeInfo.POLYGON = "Polygon";
-ShapeInfo.POLYLINE = "Polyline";
-ShapeInfo.RECTANGLE = "Rectangle";
+    // define shape name constants
+    public static ARC = "Arc";
+    public static QUADRATIC_BEZIER = "Bezier2";
+    public static CUBIC_BEZIER = "Bezier3";
+    public static CIRCLE = "Circle";
+    public static ELLIPSE = "Ellipse";
+    public static LINE = "Line";
+    public static PATH = "Path";
+    public static POLYGON = "Polygon";
+    public static POLYLINE = "Polyline";
+    public static RECTANGLE = "Rectangle";
+}
 
 // setup path parser handler after ShapeInfo has been defined
 const handler = new PathHandler(ShapeInfo);

@@ -9,12 +9,6 @@
 import {Vector2D} from "kld-affine";
 
 /**
- * @namespace
- */
-const IntersectionQuery = {};
-
-
-/**
  *  pointInCircle
  *
  *  @param {module:kld-intersections.Point2D} point
@@ -22,11 +16,11 @@ const IntersectionQuery = {};
  *  @param {number} radius
  *  @returns {boolean}
  */
-IntersectionQuery.pointInCircle = function(point, center, radius) {
+function pointInCircle (point, center, radius) {
     const v = Vector2D.fromPoints(center, point);
 
     return v.length() <= radius;
-};
+}
 
 
 /**
@@ -38,11 +32,11 @@ IntersectionQuery.pointInCircle = function(point, center, radius) {
  *  @param {number} radiusY
  *  @returns {boolean}
  */
-IntersectionQuery.pointInEllipse = function(point, center, radiusX, radiusY) {
+function pointInEllipse (point, center, radiusX, radiusY) {
     const len = point.subtract(center);
 
     return (len.x * len.x) / (radiusX * radiusX) + (len.y * len.y) / (radiusY * radiusY) <= 1;
-};
+}
 
 
 /**
@@ -51,7 +45,7 @@ IntersectionQuery.pointInEllipse = function(point, center, radiusX, radiusY) {
  *  @param {module:kld-intersections.Point2D} point
  *  @param {Array<module:kld-intersections.Point2D>} points
  */
-IntersectionQuery.pointInPolyline = function(point, points) {
+function pointInPolyline (point, points) {
     const {length: len} = points;
     let counter = 0;
     let xInter;
@@ -76,7 +70,7 @@ IntersectionQuery.pointInPolyline = function(point, points) {
     }
 
     return (counter % 2 === 1);
-};
+}
 
 
 /**
@@ -85,7 +79,7 @@ IntersectionQuery.pointInPolyline = function(point, points) {
  *  @param {module:kld-intersections.Point2D} point
  *  @param {Array<module:kld-intersections.Point2D>} points
  */
-IntersectionQuery.pointInPolygon = IntersectionQuery.pointInPolyline;
+const pointInPolygon = pointInPolyline;
 
 
 /**
@@ -96,12 +90,22 @@ IntersectionQuery.pointInPolygon = IntersectionQuery.pointInPolyline;
  *  @param {module:kld-intersections.Point2D} bottomRight
  *  @returns {boolean}
  */
-IntersectionQuery.pointInRectangle = function(point, topLeft, bottomRight) {
+function pointInRectangle (point, topLeft, bottomRight) {
     return (
         topLeft.x <= point.x && point.x < bottomRight.x &&
         topLeft.y <= point.y && point.y < bottomRight.y
     );
-};
+}
 
+/**
+ * @namespace
+ */
+const IntersectionQuery = {
+    pointInCircle,
+    pointInEllipse,
+    pointInPolyline,
+    pointInPolygon,
+    pointInRectangle
+};
 
 export default IntersectionQuery;

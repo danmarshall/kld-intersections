@@ -138,6 +138,8 @@ function closePolygon(points) {
  * @memberof module:kld-intersections
  */
 class Intersection {
+    public status: string;
+    public points: Point2D[];
     /**
      *  @param {string} status
      *  @returns {module:kld-intersections.Intersection}

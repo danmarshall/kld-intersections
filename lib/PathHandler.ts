@@ -5,6 +5,7 @@
  */
 
 import {Point2D, Vector2D} from "kld-affine";
+import ShapeInfo from "./ShapeInfo";
 
 const TWO_PI = 2.0 * Math.PI;
 
@@ -102,12 +103,19 @@ function getArcParameters(startPoint, endPoint, rx, ry, angle, arcFlag, sweepFla
  *  PathHandler
  */
 class PathHandler {
+    public shapes: any[];
+    public firstX: number;
+    public firstY: number;
+    public lastX: number;
+    public lastY: number;
+    public lastCommand: string;
+
     /**
      * PathHandler
      *
      * @param {ShapeInfo} shapeCreator
      */
-    constructor(shapeCreator) {
+    constructor(public shapeCreator: typeof ShapeInfo) {
         this.shapeCreator = shapeCreator;
         this.shapes = [];
         this.firstX = null;
